@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ankita Nagarale | DevOps Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --white: #ffffff; --off-white: #f7f6f3; --light-gray: #ebebeb;
+      --mid-gray: #b0b0b0; --dark: #1a1a1a; --accent: #0f4c81;
+      --accent-light: #e8f0f9; --accent2: #e07b39;
+      --serif: 'DM Serif Display', serif; --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--white); color: var(--dark); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 5vw;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--light-gray);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.3rem; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 0.88rem; font-weight: 500; color: var(--dark); letter-spacing: 0.04em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 120px 5vw 80px; background: var(--white); position: relative; overflow: hidden;
+    }
+    .hero-bg-circle {
+      position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, #e8f0f9 0%, transparent 70%);
+      top: -100px; right: -100px; pointer-events: none;
+    }
+    .hero-content { max-width: 680px; }
+    .hero-tag {
+      display: inline-block; background: var(--accent-light); color: var(--accent);
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.35rem 0.9rem; border-radius: 100px; margin-bottom: 1.5rem;
+    }
+    .hero-name { font-family: var(--serif); font-size: clamp(2.8rem, 6vw, 4.5rem); line-height: 1.1; color: var(--dark); margin-bottom: 0.5rem; }
+    .hero-role { font-size: 1.2rem; font-weight: 300; color: var(--mid-gray); margin-bottom: 1.8rem; }
+    .hero-role span { color: var(--accent2); font-weight: 600; }
+    .hero-summary { font-size: 1rem; color: #555; max-width: 580px; line-height: 1.75; margin-bottom: 2.5rem; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { padding: 0.75rem 1.8rem; border-radius: 6px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-primary { background: var(--accent); color: white; }
+    .btn-primary:hover { background: #0a3a66; transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+    .btn-outline:hover { background: var(--accent-light); }
+    .hero-stats { display: flex; gap: 3rem; margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid var(--light-gray); }
+    .stat-num { font-family: var(--serif); font-size: 2.2rem; color: var(--accent); }
+    .stat-label { font-size: 0.82rem; color: var(--mid-gray); margin-top: 0.2rem; }
+
+    section { padding: 90px 5vw; }
+    section:nth-child(even) { background: var(--off-white); }
+    .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.6rem; }
+    .section-title { font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--dark); margin-bottom: 3rem; max-width: 540px; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-text p { font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 1.2rem; }
+    .about-meta { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 2rem; }
+    .meta-item { display: flex; gap: 0.8rem; align-items: center; font-size: 0.9rem; }
+    .meta-icon { font-size: 1.1rem; width: 1.4rem; text-align: center; }
+    .meta-item a { color: var(--accent); text-decoration: none; }
+    .meta-item a:hover { text-decoration: underline; }
+    .cert-list { display: flex; flex-direction: column; gap: 1rem; }
+    .cert-card { background: var(--white); border: 1px solid var(--light-gray); border-left: 4px solid var(--accent); border-radius: 8px; padding: 1rem 1.2rem; }
+    .cert-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--dark); }
+    .cert-card p { font-size: 0.8rem; color: var(--mid-gray); margin-top: 0.2rem; }
+
+    .skills-categories { display: flex; flex-direction: column; gap: 2.5rem; }
+    .skill-group h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .tag { background: var(--white); border: 1px solid var(--light-gray); color: var(--dark); font-size: 0.82rem; padding: 0.4rem 0.9rem; border-radius: 100px; font-weight: 500; transition: all 0.2s; }
+    .tag:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+    .timeline { display: flex; flex-direction: column; }
+    .timeline-item { display: grid; grid-template-columns: 160px 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--light-gray); }
+    .timeline-item:last-child { border-bottom: none; }
+    .tl-date { font-size: 0.82rem; color: var(--mid-gray); padding-top: 0.3rem; }
+    .tl-company { font-family: var(--serif); font-size: 1.2rem; color: var(--dark); }
+    .tl-role { font-size: 0.88rem; color: var(--accent); font-weight: 600; margin: 0.2rem 0 1rem; }
+    .tl-bullets { padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .tl-bullets li { font-size: 0.9rem; color: #555; line-height: 1.6; }
+    .tl-bullets li::marker { color: var(--accent2); }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.8rem; }
+    .project-card { background: var(--white); border: 1px solid var(--light-gray); border-radius: 12px; padding: 2rem; transition: transform 0.2s, box-shadow 0.2s; }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .project-period { font-size: 0.75rem; color: var(--accent2); font-weight: 600; letter-spacing: 0.06em; margin-bottom: 0.6rem; }
+    .project-name { font-family: var(--serif); font-size: 1.2rem; color: var(--dark); margin-bottom: 0.2rem; }
+    .project-subtitle { font-size: 0.8rem; color: var(--mid-gray); margin-bottom: 1rem; }
+    .project-bullets { padding-left: 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .project-bullets li { font-size: 0.85rem; color: #555; line-height: 1.55; }
+    .project-bullets li::marker { color: var(--accent); }
+
+    #contact { background: var(--dark); }
+    #contact .section-label { color: #e07b39; }
+    #contact .section-title { color: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-blurb { font-size: 1rem; color: #aaa; line-height: 1.75; margin-bottom: 2.5rem; }
+    .contact-items { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .contact-item-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.06); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .contact-item-text label { display: block; font-size: 0.72rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.1rem; }
+    .contact-item-text a, .contact-item-text span { font-size: 0.92rem; color: #ccc; text-decoration: none; }
+    .contact-item-text a:hover { color: white; }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-form input, .contact-form textarea { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.9rem 1.1rem; color: white; font-size: 0.9rem; font-family: var(--sans); outline: none; transition: border-color 0.2s; resize: none; }
+    .contact-form input::placeholder, .contact-form textarea::placeholder { color: #555; }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); }
+    .contact-form textarea { height: 120px; }
+
+    footer { background: #111; color: #555; text-align: center; padding: 1.5rem; font-size: 0.82rem; }
+
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-stats { gap: 2rem; flex-wrap: wrap; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.4rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">Ankita N.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-content">
+    <div class="hero-tag">👋 Open to opportunities</div>
+    <h1 class="hero-name">Ankita<br>Nagarale</h1>
+    <p class="hero-role"><span>DevOps &amp; Cloud Engineer</span> · AWS Certified Professional</p>
+    <p class="hero-summary">3+ years architecting cloud-native infrastructure on AWS — automating CI/CD pipelines, orchestrating Kubernetes workloads, and provisioning infrastructure with Terraform. Passionate about reliability, security, and shipping fast.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">Get in Touch</a>
+      <a href="#projects" class="btn btn-outline">View Projects</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">3+</div><div class="stat-label">Years Experience</div></div>
+      <div><div class="stat-num">100+</div><div class="stat-label">AWS Resources Managed</div></div>
+      <div><div class="stat-num">40%</div><div class="stat-label">Faster Deployments</div></div>
+      <div><div class="stat-num">3</div><div class="stat-label">Certifications</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-label">Who I Am</div>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-grid">
+    <div class="about-text fade-up">
+      <p>I'm a DevOps Engineer based in Hubli, Karnataka with a B.E. in Computer Science from Jain College of Engineering (VTU). I specialise in building and maintaining cloud-native infrastructure on AWS, with a strong focus on automation, security, and cost optimisation.</p>
+      <p>At Minfy Technologies, I've led CI/CD automation initiatives using Jenkins, AWS CodePipeline, and ArgoCD — cutting deployment lead times by 40% and eliminating 80% of manual errors across 15+ monthly releases. I'm experienced in Kubernetes-based container orchestration on EKS, infrastructure as code with Terraform, and building observability stacks with Grafana and Prometheus.</p>
+      <p>Awarded Most Valuable Professional at Minfy Technologies in 2025, and hold AWS DevOps Professional, AWS Solutions Architect Associate, and HashiCorp Terraform Associate certifications.</p>
+      <div class="about-meta">
+        <div class="meta-item"><span class="meta-icon">✉️</span><a href="mailto:ankitanagarale1009@gmail.com">ankitanagarale1009@gmail.com</a></div>
+        <div class="meta-item"><span class="meta-icon">📍</span><span>Hubli, Karnataka, India</span></div>
+        <div class="meta-item"><span class="meta-icon">🔗</span><a href="https://www.linkedin.com/in/ankita-nagarale-6aab67227/" target="_blank">linkedin.com/in/ankita-nagarale-6aab67227</a></div>
+      </div>
+    </div>
+    <div class="fade-up" style="transition-delay:0.15s">
+      <div class="section-label" style="margin-bottom:1rem">Certifications &amp; Awards</div>
+      <div class="cert-list">
+        <div class="cert-card"><h4>AWS DevOps Engineer – Professional</h4><p>Amazon Web Services</p></div>
+        <div class="cert-card"><h4>AWS Solutions Architect – Associate</h4><p>Amazon Web Services</p></div>
+        <div class="cert-card"><h4>HashiCorp Terraform Associate (003)</h4><p>HashiCorp</p></div>
+        <div class="cert-card" style="border-left-color:var(--accent2)"><h4>🏆 Most Valuable Professional</h4><p>Minfy Technologies · 2025</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-label">What I Work With</div>
+  <h2 class="section-title">Skills &amp; Technologies</h2>
+  <div class="skills-categories fade-up">
+    <div class="skill-group">
+      <h3>☁️ Cloud Platforms &amp; AWS Services</h3>
+      <div class="skill-tags">
+        <span class="tag">AWS</span><span class="tag">EC2</span><span class="tag">EKS</span><span class="tag">ECS</span><span class="tag">Lambda</span><span class="tag">S3</span><span class="tag">RDS</span><span class="tag">DynamoDB</span><span class="tag">CloudFront</span><span class="tag">VPC</span><span class="tag">ALB</span><span class="tag">API Gateway</span><span class="tag">Bedrock</span><span class="tag">WAF</span><span class="tag">Transit Gateway</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>🐳 Containers &amp; Orchestration</h3>
+      <div class="skill-tags">
+        <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Helm</span><span class="tag">Karpenter</span><span class="tag">HPA</span><span class="tag">Service Mesh</span><span class="tag">Nginx</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>🔄 CI/CD &amp; GitOps</h3>
+      <div class="skill-tags">
+        <span class="tag">Jenkins</span><span class="tag">AWS CodePipeline</span><span class="tag">ArgoCD</span><span class="tag">GitHub Actions</span><span class="tag">GitLab CI</span><span class="tag">Blue/Green</span><span class="tag">Canary Deployments</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>🏗️ Infrastructure as Code</h3>
+      <div class="skill-tags">
+        <span class="tag">Terraform</span><span class="tag">AWS CloudFormation</span><span class="tag">AWS CDK</span><span class="tag">Ansible</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>📊 Monitoring &amp; Security</h3>
+      <div class="skill-tags">
+        <span class="tag">Grafana</span><span class="tag">Prometheus</span><span class="tag">CloudWatch</span><span class="tag">ELK Stack</span><span class="tag">SonarQube</span><span class="tag">Snyk</span><span class="tag">IAM</span><span class="tag">RBAC</span><span class="tag">AWS Security Hub</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>💻 Scripting &amp; Version Control</h3>
+      <div class="skill-tags">
+        <span class="tag">Python</span><span class="tag">Bash</span><span class="tag">Shell Scripting</span><span class="tag">YAML</span><span class="tag">Git</span><span class="tag">Linux</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-label">Work History</div>
+  <h2 class="section-title">Professional Experience</h2>
+  <div class="timeline">
+    <div class="timeline-item fade-up">
+      <div class="tl-date">Feb 2023 – Present</div>
+      <div>
+        <div class="tl-company">Minfy Technologies</div>
+        <div class="tl-role">DevOps Engineer · Hubli</div>
+        <ul class="tl-bullets">
+          <li>Spearheaded automated CI/CD pipelines using Jenkins, AWS CodePipeline, and ArgoCD, accelerating deployment frequency by 40% across 15+ monthly production releases.</li>
+          <li>Engineered dynamic node scaling via Karpenter and right-sized EKS clusters, cutting cloud costs by 25% while administering 200+ AWS resources.</li>
+          <li>Boosted application performance by 35% via CloudFront caching strategies, reducing latency for 10,000+ concurrent global users.</li>
+          <li>Fortified disaster recovery using Velero for EKS backups, achieving 99.9% uptime and RTO under 15 minutes.</li>
+          <li>Reduced MTTR from 2 hours to 20 minutes by constructing monitoring dashboards, proactive alerting, and self-healing workflows.</li>
+          <li>Strengthened security with least-privilege IAM policies, RBAC, and SAST/DAST scanning — achieving 100% audit compliance.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item fade-up">
+      <div class="tl-date">Aug 2019 – Jun 2023</div>
+      <div>
+        <div class="tl-company">Jain College of Engineering</div>
+        <div class="tl-role">B.E. Computer Science · Belgaum (VTU)</div>
+        <ul class="tl-bullets">
+          <li>Graduated with a Bachelor of Engineering in Computer Science.</li>
+          <li>Strong foundation in networking, operating systems, databases, and software engineering principles.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-label">What I've Built</div>
+  <h2 class="section-title">Featured Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card fade-up">
+      <div class="project-period">Dec 2024 – Present</div>
+      <div class="project-name">RiskSpan</div>
+      <div class="project-subtitle">Microservices Deployment Platform</div>
+      <ul class="project-bullets">
+        <li>Architected containerized microservices on Amazon EKS with auto-scaling supporting 10,000+ concurrent users at 99.95% uptime.</li>
+        <li>Launched GitOps workflows via ArgoCD, compressing release cycles from 2 hours to 15 minutes with 20+ daily deployments.</li>
+        <li>Designed LLM-based AI apps using Amazon Bedrock and Lambda, processing millions of serverless requests monthly.</li>
+      </ul>
+    </div>
+    <div class="project-card fade-up" style="transition-delay:0.1s">
+      <div class="project-period">Jul 2024 – Dec 2024</div>
+      <div class="project-name">Matson Innovation</div>
+      <div class="project-subtitle">Enterprise Microservices Architecture</div>
+      <ul class="project-bullets">
+        <li>Built enterprise-grade microservices architecture with secure deployments across 8 AWS accounts via centralized CodePipeline.</li>
+        <li>Slashed environment setup time from 3 days to 2 hours using CloudFormation and CDK automation.</li>
+        <li>Integrated SonarQube and InsightAppSec into CI/CD, resolving 95% of vulnerabilities pre-production.</li>
+      </ul>
+    </div>
+    <div class="project-card fade-up" style="transition-delay:0.2s">
+      <div class="project-period">Mar 2024 – Aug 2024</div>
+      <div class="project-name">Wellora</div>
+      <div class="project-subtitle">Real-Time Doctor Appointment Platform</div>
+      <ul class="project-bullets">
+        <li>Implemented real-time WebSocket app on Amazon EKS sustaining 5,000+ concurrent connections with sub-100ms latency.</li>
+        <li>Built end-to-end CI/CD pipeline using AWS CodePipeline with automated Docker image builds and Kubernetes deployments.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label">Let's Connect</div>
+  <h2 class="section-title">Get In Touch</h2>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-blurb">I'm always open to interesting DevOps challenges, cloud architecture discussions, or new career opportunities. Feel free to reach out!</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div class="contact-item-text"><label>Email</label><a href="mailto:ankitanagarale1009@gmail.com">ankitanagarale1009@gmail.com</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-text"><label>Location</label><span>Hubli, Karnataka, India</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🔗</div>
+          <div class="contact-item-text"><label>LinkedIn</label><a href="https://www.linkedin.com/in/ankita-nagarale-6aab67227/" target="_blank">ankita-nagarale-6aab67227</a></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="contact-form">
+        <input type="text" placeholder="Your Name" />
+        <input type="email" placeholder="Your Email" />
+        <textarea placeholder="Your Message"></textarea>
+        <a href="mailto:ankitanagarale1009@gmail.com" class="btn btn-primary" style="justify-content:center">Send Message →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><p>© 2025 Ankita Nagarale · DevOps &amp; Cloud Engineer</p></footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
